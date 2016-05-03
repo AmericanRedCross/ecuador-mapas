@@ -1,0 +1,3 @@
+# locale settings
+default_locale:     "es"
+authorized_locales: ["en","es"]

@@ -1,0 +1,70 @@
+
+<div id="asset-error"> There was an error :(</div>
+<hr>
+<div id="asset-cards" class="row">
+</div>
+
+<script>
+
+var assetsdata;
+
+function humanFileSize(size) {
+    var i = Math.floor( Math.log(size) / Math.log(1024) );
+    return ( size / Math.pow(1024, i) ).toFixed(2) * 1 + ' ' + ['B', 'kB', 'MB', 'GB', 'TB'][i];
+};
+
+function fetchAssets(){
+  $.ajax({
+    type: 'GET',
+    url: 'http://webviz.redcross.org/ecuador/api/assets',
+    dataType: 'JSON',
+    error: function(){
+      $("#asset-error").show();
+    },
+    success: function(response){
+      assetsdata = (response.response === undefined) ? [] : response.response;
+      if(assetsdata.length > 0){
+        buildAssets();
+      } else {
+        $("#asset-error").show();
+      }
+    }
+  });
+}
+
+function buildAssets(){
+ $.each(assetsdata, function(index, asset){
+   if(asset.type === "Map" || asset.type ===  "Infographic" || asset.type ===  "Situation Report"){
+     var thisHtml = '<div class="">' +
+      '<div class="asset-title">' + asset.title + '</div>' +
+      '<span class="asset-date">' + asset.date.slice(0,10) + '</span> &nbsp;|&nbsp; ' +
+      '<span class="asset-description">' + asset.description + '</span>&nbsp; ';
+    for(category in asset.tags){
+      $.each(asset.tags[category], function(i, tag){
+        thisHtml += '<span class="badge"> '+ tag + '</span>';
+      });
+    }
+    thisHtml += '</div>' +
+      '<a class="btn btn-default asset-btn" href="#" role="button"><i class="fa fa-download" aria-hidden="true"></i> ' + humanFileSize(asset.size) + '</a>' +
+      '<button type="button" class="btn btn-default asset-btn" data-container="body" data-toggle="popover" data-placement="right" data-img="' + asset["_id"] +
+      '"><i class="fa fa-picture-o" aria-hidden="true"></i>' + '</button>';
+   }
+   $("#asset-cards").append(thisHtml)
+
+ })
+
+ $(function () {
+  $('[data-toggle="popover"]').popover({
+    html: true,
+    trigger: 'focus',
+    content: function() {
+      return '<img src="http://webviz.redcross.org/ecuador/api/asset/' + $(this).data('img') + '/thumbnail/200" />';
+    }
+  })
+})
+
+};
+
+fetchAssets();
+
+</script>
