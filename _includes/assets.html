@@ -45,9 +45,9 @@ function buildAssets(){
       });
     }
     thisHtml += '</div>' +
-      '<a class="btn btn-default asset-btn" href="#" role="button"><i class="fa fa-download" aria-hidden="true"></i> ' + humanFileSize(asset.size) + '</a>' +
+      '<a class="btn btn-default asset-btn" href="http://webviz.redcross.org/ecuador/api/asset/' +  asset["_id"] + '/file" role="button"><span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span> ' + humanFileSize(asset.size) + '</a>' +
       '<button type="button" class="btn btn-default asset-btn" data-container="body" data-toggle="popover" data-placement="right" data-img="' + asset["_id"] +
-      '"><i class="fa fa-picture-o" aria-hidden="true"></i>' + '</button>';
+      '"><span class="glyphicon glyphicon glyphicon-picture" aria-hidden="true"></span> Preview' + '</button>';
    }
    $("#asset-cards").append(thisHtml)
 
