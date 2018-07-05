@@ -7,27 +7,17 @@
     <link rel="icon" href="img/favicon.ico" type="image/x-icon" />
 
     {% include get_locale.html %}
-    <meta name="twitter:card" content="summary" />
-    <meta name="twitter:site" content="@Federation" />
-    <meta property="og:title" content="{{site.data[locale].about.title}}" />
-    <meta property="og:type" content="website" />
-    <meta property="og:description" content="{{site.data[locale].meta.description}}" />
-    <meta property="twitter:description" content="{{site.data[locale].meta.description}}" />
-    <meta property="og:image" content="{{site.data[locale].meta.ogimg}}" />
-    <meta property="twitter:image" content="{{site.data[locale].meta.twitterimg}}" />
 
     <title>{% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}</title>
 
-    <link rel="stylesheet" href="{{ "/style.css" | prepend: site.baseurl }}">
-    <link href="//fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css">
-    <link href="//fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="{{ "/style.css" | prepend: site.github.url }}">
 
     {% include js.html %}
 
   </head>
 
   <body>
-    
+
 <div class="container">
 
   {{ content }}
